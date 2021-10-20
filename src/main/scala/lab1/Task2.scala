@@ -5,12 +5,12 @@ val io = IO ( new Bundle{
 val result = Output(Bool())
 })
 val max = (1.U << counterBits ) - 1.U
-val count = RegInit (0.U (16.W ) )
-when( count(16.U) === 1.U ) {
+val count = RegInit (0.U (4.W ) )
+when( count(3.U) === 1.U ) {
 count := 0.U
 }.otherwise {
 count := count + 1.U
 }
-io.result := count(15.U)
+io.result := count(3.U)
 println ( s"counter created with max value $max")
 }
