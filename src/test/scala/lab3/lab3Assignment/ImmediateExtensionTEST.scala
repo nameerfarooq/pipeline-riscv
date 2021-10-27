@@ -7,9 +7,9 @@ import chiseltest._
 class ImmediateExtensionTEST extends FreeSpec with ChiselScalatestTester{
     "immediate extender test" in {
         test(new ImmediateExtension()){c=>
-        c.io.inst.poke("hfe1ff0ef".U)
+        c.io.inst.poke("h01c000ef".U)
         c.clock.step(100)
-        c.io.immediate_Se.expect(-32.S)
+        c.io.immediate_Se.expect(28.S)
         }
 
     }
