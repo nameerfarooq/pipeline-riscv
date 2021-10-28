@@ -9,7 +9,7 @@ object ALUOP{
         val ALU_ADD = 0.U(4.W)
         val ALU_SUB = 1.U(4.W)
         val ALU_AND = 2.U(4.W)
-        val ALU_OR = 3.U(4.W)
+        val ALU_OR  = 3.U(4.W)
         val ALU_XOR = 4.U(4.W)
         val ALU_SLT = 5.U(4.W)
         val ALU_SLL = 6.U(4.W)
@@ -18,7 +18,7 @@ object ALUOP{
         val ALU_SRA = 9.U(4.W)
         val ALU_COPY_A = 10.U(4.W)
         val ALU_COPY_B = 11.U(4.W)
-        val ALU_XXX = 15.U(4.W)
+        val ALU_XXX = 12.U(4.W)
     
 }
 
@@ -43,7 +43,7 @@ class ALU2 extends Module with Config{
         val cmp = Mux(io.in_A(WLEN-1)=== io.in_B(WLEN-1),sum(WLEN-1),Mux(io.alu_Op(1), io.in_B(WLEN-1),io.in_A(WLEN-1)))
         val shamt = io.in_B(4,0).asUInt
         val shin = Mux(io.alu_Op(3),io.in_A,Reverse(io.in_A))
-        val shifter = (Cat(io.alu_Op(0)&& shin(WLEN-1),shin).asSInt >> shamt)(WLEN -1, 0)
+        val shifter = (Cat(io.alu_Op(0) && shin(WLEN-1),shin).asSInt >> shamt)(WLEN -1, 0)
         val shift1 = Reverse(shifter)
         val out = 
         Mux(io.alu_Op === ALU_ADD || io.alu_Op === ALU_SUB,sum,
