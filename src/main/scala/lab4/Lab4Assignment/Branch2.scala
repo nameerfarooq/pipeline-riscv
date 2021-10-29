@@ -8,7 +8,7 @@ class Branch2 extends Module{
         val branch = Input(Bool())
         val arg_x = Input(SInt(32.W))
         val arg_y = Input(SInt(32.W))
-        val br_taken = Output(Bool())
+        var br_taken = Output(Bool())
     })
     
     
