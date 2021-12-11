@@ -9,7 +9,6 @@ class Regfile extends Module{
         val rd = Input(UInt(5.W))
         val writeBack = Input(SInt(32.W))
         val writeEnable = Input(UInt(1.W))
-        val clk = Input(UInt(1.W))
         val Aout = Output(SInt(32.W))
         val Bout = Output(SInt(32.W))
        

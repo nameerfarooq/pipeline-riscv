@@ -12,7 +12,6 @@ class RegFileTest1 extends FreeSpec with ChiselScalatestTester{
         c.io.rd.poke(31.U)    
         c.io.writeBack.poke(100.S)    
         c.io.writeEnable.poke(1.U)    
-        c.io.clk.poke(1.U)   
         c.clock.step(100) 
         c.io.Aout.expect(0.S)    
         c.io.Bout.expect(100.S)    
