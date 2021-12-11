@@ -4,7 +4,7 @@ import chisel3.util
 import org.scalatest._
 import chiseltest._
 
-class RegFileTest extends FreeSpec with ChiselScalatestTester{
+class RegFileTest1 extends FreeSpec with ChiselScalatestTester{
     "reg file test" in {
         test(new Regfile()){c=>
         c.io.rs1.poke(1.U)    
