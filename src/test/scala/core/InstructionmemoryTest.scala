@@ -9,7 +9,7 @@ class InstructionmemoryTest extends FreeSpec with ChiselScalatestTester{
         test(new InstructionMemory()){c=>
         c.io.instAddr.poke(0.U)
         c.clock.step(2)
-        c.io.instOut.expect(0x008201b3.U)
+        c.io.instOut.expect(0x03210093.U)
         }
     }
 }

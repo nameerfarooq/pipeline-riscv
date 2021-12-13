@@ -5,10 +5,15 @@ import chisel3.util._
 class Top extends Module{
     val io =  IO(new Bundle{
         val Instruction = Output(UInt(32.W))
+        val pc = Output(UInt(32.W))
         val writeBack = Output(SInt(32.W))
         val regDataA = Output(SInt(32.W))
         val regDataB = Output(SInt(32.W))
         val AluResult = Output(SInt(32.W))
+        val rs1 = Output(UInt(32.W))
+        val rs2 = Output(UInt(32.W))
+        val CoreAluA = Output(SInt(32.W))
+        val CoreAluB = Output(SInt(32.W))
     })
 
     val ALU = Module(new ALU(32))
@@ -21,9 +26,12 @@ class Top extends Module{
     val Regfile = Module(new Regfile())
 
 
-
-
-    // pc logic
+    var loadPC = 0.U
+    when(loadPC === 0.U){
+        PC.io.input := 0.U
+        loadPC = 1.U
+    }.otherwise{
+        // pc logic
 
     when(ControlUnit.io.Jalr === 1.U){
         PC.io.input := (ALU.io.alu_out).asUInt
@@ -35,7 +43,9 @@ class Top extends Module{
         PC.io.input := PC.io.pc4
     }
     
+    }
     
+    io.pc := PC.io.pc
         // instruction memory and control unit
 
     
@@ -56,7 +66,8 @@ class Top extends Module{
     Regfile.io.rs1 := InstructionMemory.io.instOut(19,15)
     Regfile.io.rs2 := InstructionMemory.io.instOut(24,20)
     Regfile.io.writeEnable := ControlUnit.io.RegWrite
-    
+    io.rs1 := Regfile.io.rs1 // for expecting outputs
+    io.rs2 := Regfile.io.rs2 // for expecting outputs
     // reg writeback logic
     
     
@@ -96,7 +107,7 @@ class Top extends Module{
 
 
     // bus b logic
-    val TwoBit = Cat(ControlUnit.io.Immediate,ControlUnit.io.Auipc)
+    val TwoBit = Cat(ControlUnit.io.Auipc,ControlUnit.io.Immediate)
     when(TwoBit === "b00".U){
         ALU.io.alu_b := Regfile.io.Bout
 
@@ -122,6 +133,8 @@ class Top extends Module{
 
     }
 
+    io.CoreAluA :=  ALU.io.alu_a
+    io.CoreAluB :=  ALU.io.alu_b
 
 
     // data memory
