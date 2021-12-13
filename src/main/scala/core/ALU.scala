@@ -3,7 +3,7 @@ import chisel3._
 import chisel3.util._
 class IO_Interface1(width:Int) extends Bundle{
     val index = log2Ceil(width)
-
+    val i_type = Input(UInt(1.W))
     val alu_oper = Input(UInt(index.W))
 
     val alu_a = Input(SInt(width.W))
@@ -21,7 +21,13 @@ class ALU(width : Int) extends Module{
         io.alu_out := io.alu_a + io.alu_b
     }
     .elsewhen(io.alu_oper === "b01000".U){  // sub 01000
-        io.alu_out := io.alu_a - io.alu_b
+        when(io.i_type === 1.U){
+        io.alu_out := io.alu_a + io.alu_b
+
+        }.otherwise{
+
+            io.alu_out := io.alu_a - io.alu_b
+        }
     }
     .elsewhen(io.alu_oper === "b00001".U){ // sll 00001
         io.alu_out := (io.alu_a << io.alu_b(4,0)).asSInt

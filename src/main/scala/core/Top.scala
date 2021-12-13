@@ -105,6 +105,8 @@ class Top extends Module{
 
     }
 
+    // handling addi for negative immediates
+    ALU.io.i_type := ControlUnit.io.Immediate
 
     // bus b logic
     val TwoBit = Cat(ControlUnit.io.Auipc,ControlUnit.io.Immediate)
