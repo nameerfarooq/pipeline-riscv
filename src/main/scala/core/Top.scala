@@ -24,14 +24,14 @@ class Top extends Module{
     val InstructionMemory = Module(new InstructionMemory())
     val PC = Module(new PC())
     val Regfile = Module(new Regfile())
+    
 
-
-    var loadPC = 0.U
-    when(loadPC === 0.U){
-        PC.io.input := 0.U
-        loadPC = 1.U
-    }.otherwise{
-        // pc logic
+    // val loadPC = RegNext(0.U(32.W))
+    // when(loadPC === 0.U){
+    //     PC.io.input := 0.U
+    //     loadPC := 1.U
+    // }.otherwise{
+    PC.io.input := PC.io.pc4
 
     when(ControlUnit.io.Jalr === 1.U){
         PC.io.input := (ALU.io.alu_out).asUInt
@@ -42,8 +42,8 @@ class Top extends Module{
     }.otherwise{
         PC.io.input := PC.io.pc4
     }
+
     
-    }
     
     io.pc := PC.io.pc
         // instruction memory and control unit
@@ -114,7 +114,7 @@ class Top extends Module{
         ALU.io.alu_b := Regfile.io.Bout
 
     }.elsewhen(TwoBit === "b01".U){
-        when(ControlUnit.io.Load === 1.U || ControlUnit.io.Store === 1.U  ){
+        when(ControlUnit.io.Store === 1.U  ){
             ALU.io.alu_b := ImmediateGeneration.io.S_Imm
 
         }.otherwise{

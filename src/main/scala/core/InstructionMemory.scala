@@ -9,5 +9,5 @@ class InstructionMemory extends Module{
     val mem = Mem(1024,UInt(32.W))
     io.instOut := mem(io.instAddr)
 	loadMemoryFromFile(mem, "C:/Users/nameer/Desktop/instructions.txt")
-
+    
 }
