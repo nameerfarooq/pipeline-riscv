@@ -10,8 +10,8 @@ class PC extends Module{
     })
 
     val reg = RegNext(0.U(32.W))
-    reg := io.input
     io.pc := reg 
+    reg := io.input
     io.pc4 := reg + 4.U
     
 }

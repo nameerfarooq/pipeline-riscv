@@ -3,7 +3,7 @@ package taskslab5
 import chisel3._
 import chisel3.util._
 
-class ParameterizedAdder ( Width : Int ) extends Module {
+class ParameterizeAdder ( Width : Int ) extends Module {
 require ( Width >= 0)
   val io = IO(new Bundle{
       val inA = Input(UInt(Width.W))

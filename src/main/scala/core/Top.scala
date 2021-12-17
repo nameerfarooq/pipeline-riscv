@@ -33,23 +33,14 @@ class Top extends Module{
     // }.otherwise{
     PC.io.input := PC.io.pc4
 
-    when(ControlUnit.io.Jalr === 1.U){
-        PC.io.input := (ALU.io.alu_out).asUInt
-    }.elsewhen(ControlUnit.io.jal === 1.U){
-        PC.io.input := (ImmediateGeneration.io.UJ_Imm).asUInt
-    }.elsewhen(ALU.io.alu_branch === 1.U && ControlUnit.io.Branch === 1.U){
-        PC.io.input := (ImmediateGeneration.io.SB_Imm).asUInt
-    }.otherwise{
-        PC.io.input := PC.io.pc4
-    }
-
+    
     
     
     io.pc := PC.io.pc
         // instruction memory and control unit
 
     
-    InstructionMemory.io.instAddr := PC.io.pc
+    InstructionMemory.io.instAddr := PC.io.pc(11,2)
     ControlUnit.io.Opcode := InstructionMemory.io.instOut(6,0)
 
     // immediate generator
@@ -140,6 +131,15 @@ class Top extends Module{
 
 
     // data memory
+    when(ControlUnit.io.Jalr === 1.U){
+            PC.io.input := (ALU.io.alu_out).asUInt
+        }.elsewhen(ControlUnit.io.jal === 1.U){
+            PC.io.input := (ImmediateGeneration.io.UJ_Imm).asUInt
+        }.elsewhen(ALU.io.alu_branch === 1.U && ControlUnit.io.Branch === 1.U){
+            PC.io.input := (ImmediateGeneration.io.SB_Imm).asUInt
+        }.otherwise{
+            PC.io.input := PC.io.pc4
+        }
 
 
     DataMemory.io.DataAddr := (ALU.io.alu_out).asUInt
