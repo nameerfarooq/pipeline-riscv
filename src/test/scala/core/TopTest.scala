@@ -13,7 +13,7 @@ class TopTest extends FreeSpec with ChiselScalatestTester{
         // c.io.rs2.expect(-5.U)    
         // c.io.CoreAluA.expect(15.S)    
         // c.io.CoreAluB.expect(-5.S)    
-        c.clock.step(100)
+        c.clock.step(700)
         // c.io.writeBack.expect(10.S)       
         // c.io.AluResult.expect(11.S)    
         }

@@ -15,10 +15,12 @@ class Regfile extends Module{
     })
     val registers = Reg(Vec(32,SInt(32.W)))
     registers(0) := (0.S)
+    //registers(2) := (512.S)
     when(io.writeEnable === 1.U){
         registers(io.rd) := io.writeBack
     }.otherwise{
         registers(io.rd) := 0.S
+        
 
     }
     io.Aout := registers(io.rs1)
