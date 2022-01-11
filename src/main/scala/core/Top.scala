@@ -26,11 +26,7 @@ class Top extends Module{
     val Regfile = Module(new Regfile())
     
 
-    // val loadPC = RegNext(0.U(32.W))
-    // when(loadPC === 0.U){
-    //     PC.io.input := 0.U
-    //     loadPC := 1.U
-    // }.otherwise{
+    
     PC.io.input := PC.io.pc4
 
     
