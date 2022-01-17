@@ -9,8 +9,8 @@ class EX_MEM extends Module{
         val ID_EX_load_in = Input(UInt(1.W))
         val ID_EX_regWr_in = Input(UInt(1.W))
         val ID_EX_rs2_in = Input(SInt(32.W))
-        val ID_EX_rs2_sel_in = Input(UInt(1.W))
-        val ID_EX_rd_sel_in = Input(UInt(1.W))
+        val ID_EX_rs2_sel_in = Input(UInt(5.W))
+        val ID_EX_rd_sel_in = Input(UInt(5.W))
         val alu_output_in = Input(SInt(32.W))
         
         // defining outputs
@@ -18,8 +18,8 @@ class EX_MEM extends Module{
         val ID_EX_load_out = Output(UInt(1.W))
         val ID_EX_regWr_out = Output(UInt(1.W))
         val ID_EX_rs2_out = Output(SInt(32.W))
-        val ID_EX_rs2_sel_out = Output(UInt(1.W))
-        val ID_EX_rd_sel_out = Output(UInt(1.W))
+        val ID_EX_rs2_sel_out = Output(UInt(5.W))
+        val ID_EX_rd_sel_out = Output(UInt(5.W))
         val alu_output_out = Output(SInt(32.W))
     
     
